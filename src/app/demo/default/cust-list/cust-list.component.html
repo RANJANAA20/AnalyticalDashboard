@@ -1,0 +1,19 @@
+<p>cust-list works!</p>
+
+<table>
+    <thead>
+      <tr>
+        <th>Column 1</th>
+        <th>Column 2</th>
+        <!-- Add more columns as needed -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dataList">
+        <td>{{ item.location }}</td>
+        <td>{{ item.plan }}</td>
+        <!-- Repeat for other properties -->
+      </tr>
+    </tbody>
+  </table>
+  

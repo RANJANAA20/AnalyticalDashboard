@@ -1,0 +1,26 @@
+
+
+.user-details-popup {   position: fixed;   top: 50%;   left: 50%;   transform: translate(-50%, -50%);   background-color: #fff;   padding: 20px;   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);   z-index: 1; }
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    margin-right: 2%;
+    
+    margin-bottom: 5%;
+}
+th{
+    background-color: #51079f;
+    color: #fff;
+}
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #100e0e;
+    font-size: medium;
+    font-family:sans-serif;
+  }
+  
+  tr:hover {background-color: #e4cff8;}
