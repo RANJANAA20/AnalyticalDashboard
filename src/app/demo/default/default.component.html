@@ -142,23 +142,73 @@
 
   <div class="col-xl-6 col-md-9">
     <div class="card">
+        <div class="card-body">
+          <div class="row mb-3 align-items-center">
+            <div class="col">
+              <small>donut chart</small>
+              <h3>Plan based customers</h3>
+            </div>
+            </div>
+            <div id="areaChart">
+                <apx-chart
+                [series]="donutchartOptions.series"
+                [chart]="donutchartOptions.chart"
+                [colors]="donutchartOptions.colors"
+                [dataLabels]="donutchartOptions.dataLabels"
+                [tooltip]="donutchartOptions.tooltip"
+                [legend]="donutchartOptions.legend"
+                [labels]="donutchartOptions.labels"
+                ></apx-chart>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  
+  <!-- pie -->
+  
+  <div class="col-xl-6 col-md-9">
+    <div class="card">
+        <div class="card-body">
+          <div class="row mb-3 align-items-center">
+            <div class="col">
+              <small>pie chart</small>
+              <h3>location based Customers</h3>
+            </div>
+            </div>
+            <div id="areaChart">
+                <apx-chart
+                [series]="piechartOptions.series"
+                [chart]="piechartOptions.chart"
+                [colors]="piechartOptions.colors"
+                [labels]="piechartOptions.labels"
+                [tooltip]="piechartOptions.tooltip"
+                [legend]="piechartOptions.legend"
+                ></apx-chart>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="col-xl-6 col-md-9">
+    <div class="card">
       <div class="card-body">
         <div class="row mb-3 align-items-center">
           <div class="col">
-            <small>Total Growth</small>
-            <h3>$4567</h3>
+            <!-- <small>Total Growth</small> -->
+            <h3>Active / Inactive user</h3>
           </div>
-          <div class="col-auto">
+          <!-- <div class="col-auto">
             <select class="form-select">
               <option>Today</option>
               <option selected>This Month</option>
               <option>This Year</option>
             </select>
-          </div>
+          </div> -->
         </div>
         <div id="growthChart">
           <apx-chart
             [series]="chartOptions.series"
+            
             [chart]="chartOptions.chart"
             [dataLabels]="chartOptions.dataLabels"
             [plotOptions]="chartOptions.plotOptions"
@@ -236,57 +286,61 @@
 
 <!-- donut  -->
 
+
+
 <div class="col-xl-6 col-md-9">
   <div class="card">
       <div class="card-body">
-        <div class="row mb-3 align-items-center">
-          <div class="col">
-            <small>donut chart</small>
-            <h3>Plan based customers</h3>
-          </div>
-          </div>
-          <div id="areaChart">
+          <div id="pieChart">
+            <div class="row mb-3 align-items-center">
+              <div class="col">
+                <!-- <small>Total Growth</small> -->
+                <h3>Payment Mode</h3>
+              </div>
+              </div>
               <apx-chart
-              [series]="donutchartOptions.series"
-              [chart]="donutchartOptions.chart"
-              [colors]="donutchartOptions.colors"
-              [dataLabels]="donutchartOptions.dataLabels"
-              [tooltip]="donutchartOptions.tooltip"
-              [legend]="donutchartOptions.legend"
-              [labels]="donutchartOptions.labels"
+                  [series]="areachartOptions.series"
+                  [chart]="areachartOptions.chart"
+                  [colors]="areachartOptions.colors"
+                  [dataLabels]="areachartOptions.dataLabels"
+                  [tooltip]="areachartOptions.tooltip"
+                  [stroke]="areachartOptions.stroke"
+                  [responsive]="areachartOptions.responsive"
+                  [labels]="areachartOptions.labels"
+                  [yaxis]="areachartOptions.yaxis"
+                  [stroke]="areachartOptions.stroke"
               ></apx-chart>
           </div>
       </div>
   </div>
 </div>
 
-
-<!-- pie -->
-
 <div class="col-xl-6 col-md-9">
   <div class="card">
       <div class="card-body">
-        <div class="row mb-3 align-items-center">
-          <div class="col">
-            <small>pie chart</small>
-            <h3>location based Customers</h3>
-          </div>
-          </div>
-          <div id="areaChart">
+          <div id="pieChart">
+            <div class="row mb-3 align-items-center">
+              <div class="col">
+                <!-- <small>Total Growth</small> -->
+                <h3>payment status</h3>
+              </div>
+              </div>
               <apx-chart
-              [series]="piechartOptions.series"
-              [chart]="piechartOptions.chart"
-              [colors]="piechartOptions.colors"
-              [labels]="piechartOptions.labels"
-              [tooltip]="piechartOptions.tooltip"
-              [legend]="piechartOptions.legend"
+                  [series]="polarChartOptions.series"
+                  [chart]="polarChartOptions.chart"
+                  [colors]="polarChartOptions.colors"
+                  [dataLabels]="polarChartOptions.dataLabels"
+                  [tooltip]="polarChartOptions.tooltip"
+                  [stroke]="polarChartOptions.stroke"
+                  [responsive]="polarChartOptions.responsive"
+                  [labels]="polarChartOptions.labels"
               ></apx-chart>
           </div>
       </div>
   </div>
 </div>
-<!-- 
-<div class="col-xl-6 col-md-9">
+
+<!-- <div class="col-xl-6 col-md-9">
   <div class="card">
       <div class="card-body">
           <div id="pieChart">
@@ -297,17 +351,22 @@
               </div>
               </div>
               <apx-chart
-                  [series]="piechartOptions.series"
-                  [chart]="piechartOptions.chart"
-                  [colors]="piechartOptions.colors"
-                  [dataLabels]="piechartOptions.dataLabels"
-                  [tooltip]="piechartOptions.tooltip"
-              ></apx-chart>
+    [series]="polarChartOptions.series"
+    [chart]="polarChartOptions.chart"
+    [labels]="polarChartOptions.labels"
+    [title]="polarChartOptions.title"
+    [theme]="polarChartOptions.theme"
+    [fill]="polarChartOptions.fill"
+    [yaxis]="polarChartOptions.yaxis"
+    [stroke]="polarChartOptions.stroke"
+    [legend]="polarChartOptions.legend"
+    [plotOptions]="polarChartOptions.plotOptions"
+  ></apx-chart>
           </div>
       </div>
   </div>
-</div>
- -->
+</div> -->
+
 
   <!-- <div class="col-xl-4 col-md-12">
     <div class="card">

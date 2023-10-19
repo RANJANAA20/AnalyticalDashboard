@@ -50,13 +50,14 @@ export default class ElementColorComponent
   inactive : number
   selectedUser :null
   customer =[]
+  custNew : number
 
   constructor(private service:DatasetServiceService,private route : AppRoutingModule)
   {
     this.service.getAllData().subscribe((data)=>{this.dataList=data;},);
-    this.service.activeCust().subscribe((data: number)=>{this.active=data;console.log(data)})
+    this.service.activeCust().subscribe((data: number)=>{this.active=data})
     this.service.inactiveCust().subscribe((data:number)=>{this.inactive=data});
-
+    this.service.custNew().subscribe((data:number)=>{this.custNew=data;console.log(data)});
 
 
 

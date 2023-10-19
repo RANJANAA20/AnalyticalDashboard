@@ -217,7 +217,7 @@ const NavigationItems = [
     children: [
       {
         id: 'sample-page',
-        title: 'Sample Page',
+        title: 'Complaints',
         type: 'item',
         url: '/sample-page',
         classes: 'nav-item',

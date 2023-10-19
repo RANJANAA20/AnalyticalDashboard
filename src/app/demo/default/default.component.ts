@@ -34,6 +34,7 @@ import { bottom } from '@popperjs/core';
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
+
   dataLabels: ApexDataLabels;
   plotOptions: ApexPlotOptions;
   responsive: ApexResponsive[];
@@ -42,6 +43,13 @@ export type ChartOptions = {
   grid: ApexGrid;
   tooltip: ApexTooltip;
   stroke: ApexStroke;
+  fill: ApexFill;
+  labels:any,
+  yaxis: ApexYAxis,
+  legend: ApexLegend,
+  theme: ApexTheme,
+  title: ApexTitleSubtitle;
+  series1:ApexAxisChartSeries
 };
 
 @Component({
@@ -70,6 +78,10 @@ export default class DefaultComponent
   @ViewChild('chart', { static: false }) donutchart: ChartComponent;
   public donutchartOptions;
 
+  @ViewChild("chart") chart: ChartComponent;
+  public polarChartOptions: Partial<ChartOptions>;
+  
+
   // @ViewChild('bajajchart') bajajchart: ChartComponent;
   // chartOptions1: Partial<ChartOptions>;
   monthChart: any;
@@ -89,6 +101,16 @@ export default class DefaultComponent
   revenueLabel: string[];
   revenueValues: any[];
 
+  paymentModeLabel: string[];
+  paymentModeValues : any[];
+
+  payStatusLabel:string[];
+  payStatusValues :any[];
+
+  activeValues :any[];
+  inactiveValues : any[];
+  monthLabel :string[]=[];
+
   
 
 
@@ -96,120 +118,212 @@ export default class DefaultComponent
   constructor(private service:DatasetServiceService) 
   {
     
-    this.chartOptions = {
-      // data
-      series: [
-        {
-          name: 'Investment',
-          data: [35, 125, 35, 35, 35, 80, 35, 20, 35, 45, 15, 75]
-        },
-        {
-          name: 'Loss',
-          data: [35, 15, 15, 35, 65, 40, 80, 25, 15, 85, 25, 75]
-        },
-        {
-          name: 'Profit',
-          data: [35, 145, 35, 35, 20, 105, 100, 10, 65, 45, 30, 10]
-        },
-        // {
-        //   name: 'Maintenance',
-        //   data: [0, 0, 75, 0, 0, 115, 0, 0, 0, 0, 150, 0]
-        // }
-      ],
-      // dataset
-      dataLabels: {
-        enabled: false
-      },
-      //type of chart
-      chart: {
-        type: 'line',
-        height: 480,
-        stacked: true,
-        toolbar: {
-          show: false
-        }
-      },
-      colors: ['#90caf9', '#1e88e5', '#673ab7', '#ede7f6'],
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            legend: {
-              position: 'bottom',
-              offsetX: -10,
-              offsetY: 0
-            }
-          }
-        }
-      ],
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: '50%'
-        }
-      },
-      xaxis: {
-        type: 'category',
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May',   'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-      },
-      grid: {
-        strokeDashArray: 4
-      },
-      tooltip: {
-        theme: 'dark'
-      }
-    };
+    
+    // this.chartOptions = {
+    //   // data
+    //   series: [
+    //     {
+    //       name: 'active',
+    //       data: [3, 1, 3, 5, 4, 8, 3, 2, 6, 4, 15, 12]
+    //     },
+    //     {
+    //       name: 'passive',
+    //       data: [35, 15, 15, 35, 65, 40, 80, 25, 15, 85, 25, 75]
+    //     },
+    //     // {
+    //     //   name: 'Profit',
+    //     //   data: [35, 145, 35, 35, 20, 105, 100, 10, 65, 45, 30, 10]
+    //     // },
+    //     // {
+    //     //   name: 'neutral',
+    //     //   data: [31, 142, 25, 15, 21, 125, 80, 30, 25, 95, 20, 30]
+    //     // },
+    //     // {
+    //     //   name: 'Maintenance',
+    //     //   data: [0, 0, 75, 0, 0, 115, 0, 0, 0, 0, 150, 0]
+    //     // }
+    //   ],
+    //   // dataset
+    //   dataLabels: {
+    //     enabled: false
+    //   },
+    //   //type of chart
+    //   chart: {
+    //     type: 'line',
+    //     height: 480,
+    //     stacked: true,
+    //     toolbar: {
+    //       show: false
+    //     }
+    //   },
+    //   colors: ['#90caf9', '#1e88e5', '#673ab7', '#ede7f6'],
+    //   responsive: [
+    //     {
+    //       breakpoint: 480,
+    //       options: {
+    //         legend: {
+    //           position: 'bottom',
+    //           offsetX: -10,
+    //           offsetY: 0
+    //         }
+    //       }
+    //     }
+    //   ],
+    //   plotOptions: {
+    //     bar: {
+    //       horizontal: false,
+    //       columnWidth: '50%'
+    //     }
+    //   },
+    //   xaxis: {
+    //     type: 'category',
+    //     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May',   'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    //   },
+    //   grid: {
+    //     strokeDashArray: 4
+    //   },
+    //   tooltip: {
+    //     theme: 'dark'
+    //   }
+    // };
 
     // area
-    this.areachartOptions = {
-      series: [
-        {
-          name: 'basic',
-          data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380],
-        },
-      ],
-      chart: {
-        type: 'area',
-        height: 350,
-      },
-      colors: [
-        '#d4526e',
-        '#13d8aa',
-        '#A5978B',
-        '#2b908f',
-        '#f9a3a4',
-        '#90ee7e',
-        '#f48024',
-        '#69d2e7',
-      ],
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          distributed: true,
-        },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      xaxis: {
-        categories: [
-          'South Korea',
-          'Canada',
-          'United Kingdom',
-          'Netherlands',
-          'Italy',
-          'France',
-          'Japan',
-          'United States',
-          'China',
-          'Germany',
-        ],
-      },
-    };
+    // this.areachartOptions = {
+    //   series: [
+    //     {
+    //       name: 'basic',
+    //       data: [400, 430, 448, 470, 540, 580, 690, 1100, 120, 130],
+    //     },
+        
+    //   ],
+    //   chart: {
+    //     type: 'area',
+    //     height: 350,
+    //     toolbar: {
+    //       show: false
+    //     }
+    //   },
+    //   colors: [
+    //     '#673ab7',
+    //     '#13d8aa',
+    //     '#A5978B',
+    //     '#673ab7',
+    //     '#f9a3a4',
+    //     '#90ee7e',
+    //     '#f48024',
+    //     '#69d2e7',
+    //   ],
+    //   plotOptions: {
+    //     bar: {
+    //       horizontal: false,
+    //       distributed: true,
+    //     },
+    //   },
+    //   dataLabels: {
+    //     enabled: false,
+    //   },
+    //   xaxis: {
+    //     categories: [
+    //       'South Korea',
+    //       'Canada',
+    //       'United Kingdom',
+    //       'Netherlands',
+    //       'Italy',
+    //       'France',
+    //       'Japan',
+    //       'United States',
+    //       'China',
+    //       'Germany',
+    //     ],
+    //   },
+    // };
 
+    // this.polarChartOptions=
+    //  {
+    //   // series: [
+    //   //   {
+    //   //     name: 'line',
+    //   //     data: [400, 430, 448, 470, 540],
+    //   //   },
+    //   // ],
+    //   // chart: {
+    //   //   type: "bar"
+    //   // },
+    //   // stroke: {
+    //   //   colors: ["#fff"]
+    //   // },
+    //   // fill: {
+    //   //   opacity: 0.8
+    //   // },
+    //   // responsive: [
+    //   //   {
+    //   //     breakpoint: 480,
+    //   //     options: {
+    //   //       chart: {
+    //   //         width: 200,
+    //   //         height:350
+    //   //       },
+    //   //       legend: {
+    //   //         position: "bottom"
+    //   //       },
+    //   //       xaxis: {
+    //   //         categories: [
+    //   //           'South Korea',
+    //   //           'Canada',
+    //   //           'United Kingdom',
+    //   //           'Netherlands',
+    //   //           'Italy',
+                
+    //   //         ],
+    //   //       },
+    //   //     }
+    //   //   }
+    //   // ]
 
-    // chart 2 
-    // to count revenue based on months
+    //   series: [
+    //     {
+    //       name: 'basic',
+    //       data: [400, 430, 448, 470, 540],
+    //     }],
+    //     chart: {
+    //       width: 380,
+    //       height:330,
+    //       type: 'line',
+    //       toolbar: {
+    //         show: false
+    //       }
+    //     },
+    //     labels: ['Rose A', 'Rose B', 'Rose C', 'Rose D', 'Rose E'],
+    //     fill: {
+    //       opacity: 5
+    //     },
+    //     stroke: {
+    //       width: 4,
+    //       colors: undefined
+    //     },
+    //     colors:['#673ab7'],
+    //     yaxis: {
+    //       show: false
+    //     },
+    //     legend: {
+    //       position: 'bottom'
+    //     },
+    //     plotOptions: {
+    //       bar:{
+            
+
+    //       },
+    //       polarArea: {
+    //         rings: {
+    //           strokeWidth: 0
+    //         }
+    //       }
+    //     },
+       
+    // };
+  
+
+    
     
 
 // donut
@@ -290,8 +404,14 @@ export default class DefaultComponent
     this.chartPie(); // count based on location
     this.chartDonut();// count based on plans
     this.chartBar(); // revenue based on months
+    this.chartArea();// mode of payment
+    this.chartPayLine(); // payment status
+    this.chartStatus();
     
   }
+
+  
+  
   
   
   
@@ -499,7 +619,7 @@ export default class DefaultComponent
           height: 350,
         },
         labels: pieLabel,
-        colors: ['#90caf9', '#1e88e5', '#673ab7'], // Example colors for the pie chart
+        colors: ['#90caf9', '#0d47a1', '#673ab7','#dcd0ff'], // Example colors for the pie chart
         tooltip: 
         {
           theme: 'dark',
@@ -582,22 +702,13 @@ export default class DefaultComponent
       this.chartOptions1 = {
         series: [
   
-          // {
-          //   name: 'Investment',
-          //   data: [35, 125, 35, 35, 35, 80, 35, 20, 35, 45, 15, 75]
-          // },
-          // {
-          //   name: 'Loss',
-          //   data: [35, 15, 15, 35, 65, 40, 80, 25, 15, 85, 25, 75]
-          // },
+         
           {
             name: 'revenue',
             data: revenueValues
           },
-          // {
-          //   name: 'Maintenance',
-          //   data: [0, 0, 75, 0, 0, 115, 0, 0, 0, 0, 150, 0]
-          // }
+          
+          
         ],
         dataLabels: {
           enabled: false
@@ -626,13 +737,13 @@ export default class DefaultComponent
         ],
         plotOptions: {
           bar: {
-            horizontal: false,
+            horizontal: true,
             columnWidth: '50%'
           }
         },
         xaxis: {
           type: 'category',
-          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct']
           // categories: revenueLabel
         },
         grid: {
@@ -647,4 +758,282 @@ export default class DefaultComponent
 
     })
   }
+
+  // area chart - mode of payment
+  chartArea() 
+  {
+    console.log("area init")
+    this.service.paymentMode().subscribe((data:any)=>
+    {
+      const paymentModeLabel = []
+      const paymentModeValues : string[]=[]
+
+      for(const key in data)
+      {
+        if(data.hasOwnProperty(key))
+        {
+          paymentModeLabel.push(key);
+          paymentModeValues.push(data[key])
+        }
+      }
+
+      this.paymentModeLabel = paymentModeLabel;
+      this.paymentModeValues = paymentModeValues;
+      console.log(paymentModeLabel+"\n"+paymentModeValues)
+
+      this.areachartOptions = {
+        series: [
+          {
+            name: 'payment mode',
+            data: paymentModeValues,
+          },
+          
+        ],
+        chart: {
+          type: 'bar',
+          height: 350,
+          toolbar: {
+            show: false
+          }
+        },
+        colors: [
+          '#673ab7',
+          '#13d8aa',
+          '#A5978B',
+          '#673ab7',
+          '#f9a3a4',
+          '#90ee7e',
+          '#f48024',
+          '#69d2e7',
+        ],
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            distributed: true,
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        labels:paymentModeLabel,
+        xaxis: {
+          
+        },
+        stroke: {
+          curve: "smooth"
+        },
+      };
+  
+
+    })
+  };
+
+  // payment status
+  chartPayLine() 
+  {
+    console.log("bf service")
+    this.service.paymentStatus().subscribe((data:any)=>{
+      const payStatusLabel :string[] =[]
+      const payStatusValues:number[] =[];
+      console.log(data)
+      for(const key in data)
+      {
+        if(data.hasOwnProperty(key))
+        {
+          payStatusLabel.push(key)
+          payStatusValues.push(data[key])
+        }
+      }
+
+      this.payStatusLabel = payStatusLabel
+      this.payStatusValues = payStatusValues
+      console.log(payStatusLabel+"\n"+payStatusValues)
+
+      this.polarChartOptions=
+     {
+      // series: [
+      //   {
+      //     name: 'line',
+      //     data: [400, 430, 448, 470, 540],
+      //   },
+      // ],
+      // chart: {
+      //   type: "bar"
+      // },
+      // stroke: {
+      //   colors: ["#fff"]
+      // },
+      // fill: {
+      //   opacity: 0.8
+      // },
+      // responsive: [
+      //   {
+      //     breakpoint: 480,
+      //     options: {
+      //       chart: {
+      //         width: 200,
+      //         height:350
+      //       },
+      //       legend: {
+      //         position: "bottom"
+      //       },
+      //       xaxis: {
+      //         categories: [
+      //           'South Korea',
+      //           'Canada',
+      //           'United Kingdom',
+      //           'Netherlands',
+      //           'Italy',
+                
+      //         ],
+      //       },
+      //     }
+      //   }
+      // ]
+
+      series: [
+        {
+          name: 'basic',
+          data: payStatusValues,
+        }],
+        chart: {
+          width: 380,
+          height:350,
+          type: 'area',
+          toolbar: {
+            show: false
+          }
+        },
+        labels: payStatusLabel,
+        fill: {
+          opacity: 5
+        },
+        stroke: {
+          width: 4,
+          colors: undefined
+        },
+        colors:['#673ab7'],
+        yaxis: {
+          show: false
+        },
+        legend: {
+          position: 'bottom'
+        },
+        plotOptions: {
+          bar:{
+            
+
+          },
+          polarArea: {
+            rings: {
+              strokeWidth: 0
+            }
+          }
+        },
+       
+    };
+  
+    })
+  };
+
+  // to get active and inactive customers based on month
+  chartStatus() 
+  {
+    console.log("before status service")
+    this.service.customerStatus().subscribe((data:any)=>
+    {
+      const activeValues = []
+      const inactiveValues = []
+      const monthLabel :string[]=[];
+
+      for(const key in data)
+      {
+        if(data.hasOwnProperty(key))
+        {
+          monthLabel.push(key);
+          activeValues.push(data[key].active)
+          inactiveValues.push(data[key].inactive)
+        }
+      }
+
+      this.monthLabel = monthLabel;
+      this.activeValues = activeValues;
+      this.inactiveValues = inactiveValues;
+
+      console.log(monthLabel+"\n"+"active:"+activeValues+"\n"+"inactive:"+inactiveValues)
+      this.chartOptions = {
+        // data
+        series: [
+          {
+            name: 'active',
+            data: activeValues
+          },
+          // {
+          //   name: 'passive',
+          //   data: inactiveValues
+          //   // data:[2,3,4,1],
+          // },
+          // {
+          //   name: 'Profit',
+          //   data: [35, 145, 35, 35, 20, 105, 100, 10, 65, 45, 30, 10]
+          // },
+          // {
+          //   name: 'neutral',
+          //   data: [31, 142, 25, 15, 21, 125, 80, 30, 25, 95, 20, 30]
+          // },
+          // {
+          //   name: 'Maintenance',
+          //   data: [0, 0, 75, 0, 0, 115, 0, 0, 0, 0, 150, 0]
+          // }
+        ],
+        
+        // dataset
+        dataLabels: {
+          enabled: false
+        },
+        //type of chart
+        chart: {
+          type: 'line',
+          height: 480,
+          stacked: true,
+          toolbar: {
+            show: false
+          }
+        },
+        colors: ['#673ab7', '#1e88e5', '#673ab7', '#ede7f6'],
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              legend: {
+                position: 'bottom',
+                offsetX: -10,
+                offsetY: 0
+              }
+            }
+          }
+        ],
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '50%'
+          }
+        },
+        xaxis: {
+          type: 'category',
+          categories: monthLabel
+          // categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May',   'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        grid: {
+          strokeDashArray: 4
+        },
+        tooltip: {
+          theme: 'dark'
+        }
+      };
+  
+
+    })
+  }
+
 }

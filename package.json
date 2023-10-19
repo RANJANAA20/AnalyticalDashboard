@@ -25,9 +25,13 @@
     "@popperjs/core": "^2.11.8",
     "apexcharts": "^3.41.0",
     "bootstrap": "^5.2.3",
+    "jquery": "^3.7.1",
+    "net": "^1.0.2",
     "ng-apexcharts": "^1.8.0",
     "ngx-scrollbar": "^13.0.3",
     "rxjs": "~7.8.1",
+    "sockjs-client": "^1.6.1",
+    "stompjs": "^2.3.3",
     "tslib": "^2.6.0",
     "zone.js": "~0.13.1"
   },
