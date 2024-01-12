@@ -51,18 +51,62 @@ export default class ElementColorComponent
   selectedUser :null
   customer =[]
   custNew : number
+  teleList : any
+
+  searchTerm: string = '';
+    searchedCustomer: any;
+
+    filteredTeleList: any;
+    selectedLocation: string = 'all';
 
   constructor(private service:DatasetServiceService,private route : AppRoutingModule)
   {
     this.service.getAllData().subscribe((data)=>{this.dataList=data;},);
-    this.service.activeCust().subscribe((data: number)=>{this.active=data})
-    this.service.inactiveCust().subscribe((data:number)=>{this.inactive=data});
-    this.service.custNew().subscribe((data:number)=>{this.custNew=data;console.log(data)});
+    // this.service.activeCust().subscribe((data: number)=>{this.active=data})
+    // this.service.inactiveCust().subscribe((data:number)=>{this.inactive=data});
+    // this.service.custNew().subscribe((data:number)=>{this.custNew=data;console.log(data)});
 
+    this.service.getTelelist().subscribe((data)=>{this.teleList=data})
+    this.service.getActive().subscribe((data:number)=>{this.active=data})
+    this.service.getInactive().subscribe((data:number)=>{this.inactive=data});
+    this.service.getNewCust().subscribe((data:number)=>{this.custNew=data});
 
-
+    this.service.getTelelist().subscribe((data) => {
+      this.teleList = data;
+      this.filteredTeleList = this.teleList;
+    });
   }
 
+  filterByLocation() {
+    if (this.selectedLocation === 'all') {
+      this.filteredTeleList = this.teleList;
+    } else {
+      this.filteredTeleList = this.teleList.filter(
+        (item) => item.location === this.selectedLocation
+      );
+    }
+  }
+
+  getTeleDataByLocation(event: Event) {
+    const target = event.target as HTMLSelectElement;
+  const location = target.value;
+    this.service.getTeleDataByLocation(location).subscribe((data) => {
+      this.filteredTeleList = data;
+      console.log(this.filteredTeleList);
+    });
+  }
+
+  searchCustomer() {
+    if (this.searchTerm.trim() !== '') {
+        this.service.searchCustomer(this.searchTerm).subscribe((data: any) => {
+            this.searchedCustomer = data;
+            console.log(this.searchedCustomer)
+        });
+    } else {
+      console.log("failed")
+        this.searchedCustomer = null;
+    }
+}
 showpopup(item)
 {
   this.selectedUser=item

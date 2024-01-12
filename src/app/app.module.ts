@@ -22,6 +22,7 @@ import { LoginComponentComponent } from './login-component/login-component.compo
 import { CustomerComponent } from './customer/customer.component';
 import { CustListComponent } from './demo/default/cust-list/cust-list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { HttpClientModule } from '@angular/common/http';
     CustomerComponent,
     CustListComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, SharedModule, BrowserAnimationsModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, SharedModule, BrowserAnimationsModule, HttpClientModule,FormsModule],
   providers: [NavigationItem],
   bootstrap: [AppComponent]
 })

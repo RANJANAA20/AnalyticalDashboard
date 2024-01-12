@@ -13,11 +13,16 @@ import { DatasetServiceService } from 'src/app/dataset-service.service';
 export default class SamplePageComponent 
 {
   compList :any
+  feedback :any
   constructor(private service:DatasetServiceService)
   {
     this.service.getComplaints().subscribe((data)=>{
       this.compList=data;
-      console.log(data)
-    })
+      console.log(data);
+    });
+
+    
   }
+
+  
 }

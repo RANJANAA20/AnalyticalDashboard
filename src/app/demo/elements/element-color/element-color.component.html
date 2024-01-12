@@ -126,70 +126,169 @@
   
   <div class="row">
     
-  
-  <table >
-    <thead>
-      <tr>
-        <th>CUSTOMER ID</th>
-        <th>CUSTOMER NAME</th>
-        <th>LOCATION</th>
-        <th>PLAN</th>
-        <th>BILL</th>
-        <th>DATE OF ISSUE</th>
-        <th>STATUS</th>
-        <!-- <th>ACTION</th> -->
-        
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of dataList" >
-        <td>{{ item.cust_id }}</td>
-        <td>{{ item.cust_name }}</td>
-        <td>{{ item.location }}</td>
-        <td>{{ item.plan }}</td>
-        <td>{{ item.bill }}</td>
-        <td>{{ item.date_of_issue }}</td>
-        <td>{{item.status}}</td>
-        <!-- <td><input type="button" value = "action" (click)="showpopup(item)"></td> -->
-        <!-- <td><input type="button" value="view"></td> -->
-        <!-- <td><button (click)="onView(item)">View</button></td> -->
-      </tr>
-    </tbody>
-  </table>
+      
+     
+  <!-- </div> -->
+  <div style="display: flex; align-items: center; border-radius: 20px; padding: 5px;">
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Search by Customer ID" style="padding: 8px; border: none; border-radius: 20px 0 0 20px;color: black;">
+    <button (click)="searchCustomer()" style="padding: 8px 12px; background-color: #51079f; color: white; border: none; border-radius: 0 20px 20px 0; cursor: pointer;">Search</button>
 
-
-
-<div class="user-details-popup" *ngIf="selectedUser">
-  {{selectedUser|json}}
-  <!-- <p>{{customer.cust_id}}</p> -->
-  <button (click)="closepopup()">Close</button>  
-
-  <table>
-    <thead>
-      <tr>
-        <th>CUSTOMER ID</th>
-        <th>CUSTOMER NAME</th>
-        <th>LOCATION</th>
-        <th>PLAN</th>
-        <th>BILL</th>
-        <th>DATE OF ISSUE</th>
-        <th>STATUS</th>
-        <th>ACTION</th>
-        
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of customer" >
-        <td>{{ item.cust_id }}</td>
-        <td>{{ item.cust_name }}</td>
-        <!-- <td>{{ item.location }}</td>
-        <td>{{ item.plan }}</td>
-        <td>{{ item.bill }}</td>
-        <td>{{ item.date_of_issue }}</td>
-        <td>{{item.status}}</td> -->
-        
-      </tr>
-    </tbody>
-  </table>
-  
+    <label for="location" style="margin-left: 43%; font-size: large;font-family: sans-serif;">Select Location:</label>
+    <select id="location" [(ngModel)]="selectedLocation" (change)="filterByLocation()" style="padding: 8px; border: none; border-radius: 20px; margin-left: 5px;
+            background-color: #51079f; color: #fdfbfb; font-size: 16px;">
+        <option value="all">All Locations</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Kolkata">Kolkata</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Delhi">Cochin</option>
+    </select>
 </div>
+
+<br>
+  <br><br>
+  <table *ngIf="searchedCustomer">
+      
+    <thead>
+        <tr>
+            <th>CUSTOMER ID</th>
+            <th>LOCATION</th>
+            <th>PLAN</th>
+            <th>PAY MODE</th>
+            <th>DATE OF ISSUE</th>
+            <th>BILL</th>
+            <th>STATUS</th>
+            <th>BILL ANOMALY</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of searchedCustomer" >
+        <td>{{ item.customerID }}</td>
+            <td>{{ item.location }}</td>
+            <td>{{ item.subscriptionPlan }}</td>
+            <td>{{ item.paymode }}</td>
+            <td>{{ item.date }}</td>
+            <td>{{ item.bill }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.isBillingAnomaly }}</td>
+        </tr>
+    </tbody>
+</table>
+
+ 
+<table *ngIf="!searchedCustomer">
+  
+  <thead>
+    <tr>
+        <th>CUSTOMER ID</th>
+        <th>LOCATION</th>
+        <th>PLAN</th>
+        <th>PAY MODE</th>
+        <th>DATE OF ISSUE</th>
+        <th>BILL</th>
+        <th>STATUS</th>
+        <th>BILL ANOMALY</th>
+    </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let item of filteredTeleList" >
+
+    <td>{{ item.customerID }}</td>
+              <td>{{ item.location }}</td>
+              <td>{{ item.subscriptionPlan }}</td>
+              <td>{{ item.paymode }}</td>
+              <td>{{ item.date }}</td>
+              <td>{{ item.bill }}</td>
+              <td>{{ item.status }}</td>
+              <td>{{ item.isBillingAnomaly }}</td>
+  </tr>
+</tbody>
+</table>
+
+  
+  
+    
+
+  <!-- <table >
+    <thead>
+      <tr>
+        <th>CUSTOMER ID</th>
+        <th>LOCATION</th>
+        <th>PLAN</th>
+        <th>PAY MODE</th>
+        <th>DATE OF ISSUE</th>
+        <th>BILL</th>
+        <th>STATUS</th>
+        <th>BILL ANOMALY</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of teleList" >
+        <td>{{ item.customerID }}</td>
+        <td>{{ item.location }}</td>
+        <td>{{ item.subscriptionPlan }}</td>
+        <td>{{ item.paymode }}</td>
+        <td>{{ item.date }}</td>
+        <td>{{ item.bill }}</td>
+        <td>{{item.status}}</td>
+        <td>{{item.isBillingAnomaly}}</td>
+      </tr>
+      
+    </tbody>
+  </table> -->
+
+  <!-- <table>
+    <thead>
+      <tr>
+        <th>CUSTOMER ID</th>
+        <th>LOCATION</th>
+        <th>PLAN</th>
+        <th>PAY MODE</th>
+        <th>DATE OF ISSUE</th>
+        <th>BILL</th>
+        <th>STATUS</th>
+        <th>BILL ANOMALY</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="searchedCustomer && !selectedLocation">
+      <tr *ngFor="let item of searchedCustomer">
+        <td>{{ item.customerID }}</td>
+        <td>{{ item.location }}</td>
+        <td>{{ item.subscriptionPlan }}</td>
+        <td>{{ item.paymode }}</td>
+        <td>{{ item.date }}</td>
+        <td>{{ item.bill }}</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.isBillingAnomaly }}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="filteredTeleList && selectedLocation">
+      <tr *ngFor="let item of filteredTeleList">
+        <td>{{ item.customerID }}</td>
+        <td>{{ item.location }}</td>
+        <td>{{ item.subscriptionPlan }}</td>
+        <td>{{ item.paymode }}</td>
+        <td>{{ item.date }}</td>
+        <td>{{ item.bill }}</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.isBillingAnomaly }}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="teleList && !searchedCustomer && !selectedLocation">
+      <tr *ngFor="let item of teleList">
+        <td>{{ item.customerID }}</td>
+        <td>{{ item.location }}</td>
+        <td>{{ item.subscriptionPlan }}</td>
+        <td>{{ item.paymode }}</td>
+        <td>{{ item.date }}</td>
+        <td>{{ item.bill }}</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.isBillingAnomaly }}</td>
+      </tr>
+    </tbody>
+  </table> -->
+  
+
+  

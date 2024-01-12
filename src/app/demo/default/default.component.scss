@@ -4,3 +4,8 @@
 .avtar:not([class*='bg-']) {
   background: rgba(0, 0, 0, 0.15);
 }
+#revenue {
+  display: inline-block;
+  font-size: 3rem; /* Adjust the font size as needed */
+  line-height: 1.2;
+}

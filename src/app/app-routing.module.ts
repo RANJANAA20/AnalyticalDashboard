@@ -5,6 +5,7 @@ import { GuestComponent } from './theme/layout/guest/guest.component';
 import { LoginComponentComponent } from './login-component/login-component.component';
 import { CustomerComponent } from './customer/customer.component';
 import { CustListComponent } from './demo/default/cust-list/cust-list.component';
+import { CanActivateGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -32,6 +33,7 @@ const routes: Routes = [
       
 
       // {
+      //  ,canActivate: [CanActivateGuard]
       //   path: 'color',
       //   loadComponent: () => import('./demo/elements/element-color/element-color.component')
       // },

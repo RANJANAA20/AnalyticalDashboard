@@ -138,7 +138,7 @@ const NavigationItems = [
         type: 'item',
         classes: 'nav-item',
         url: '/default',
-        icon: 'ti ti-dashboard',
+        
         breadcrumbs: false
       }
     ]
@@ -187,7 +187,7 @@ const NavigationItems = [
         type: 'item',
         classes: 'nav-item',
         url: '/typography',
-        icon: 'ti ti-typography'
+        
       },
       {
         id: 'color',
@@ -195,7 +195,7 @@ const NavigationItems = [
         type: 'item',
         classes: 'nav-item',
         url: '/color',
-        icon: 'ti ti-brush'
+        
       },
       // {
       //   id: 'tabler',
@@ -221,7 +221,7 @@ const NavigationItems = [
         type: 'item',
         url: '/sample-page',
         classes: 'nav-item',
-        icon: 'ti ti-brand-chrome'
+        
       },
       // {
       //   id: 'document',
